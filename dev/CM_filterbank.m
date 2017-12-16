@@ -5,6 +5,7 @@ function [y,Vm,H]=CM_filterbank(h,g,M,x)
 %  g : FIR LPF coefficients or impulse response for synthesis
 %  M : Number of channels (analysis-synthesis filter pairs)
 %  x : Input sequence
+%
 % Output
 %  y : Output sequence (delayed by M samples cod with the input x)
 %  Vm: M-subband intermediate sequence matrix
