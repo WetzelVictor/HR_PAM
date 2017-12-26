@@ -56,7 +56,7 @@ end
 dev = (p-q')*(p'-q);
 iter = 0;
 while(dev > err),
-	iter = iter + 1
+	iter = iter + 1;
 	Mp = CC1*p';
 	Hp = diag(Mp);
 	U = Hp*CC1;

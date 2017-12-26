@@ -128,11 +128,13 @@ for t = duree; % pour chaque fenêtre d'analyse
    	end;
 	   V(:,k2) = V(:,k2) / norm(V(:,k2));
    end;
-   % ESTIMATION DES AMPLITUDES COMPLEXES
-   alpha(:,k) = pinv(V)*x; % moindres carrés
-   V = exp(log(1./z(:,k))*(0:p-1)); % matrice de Vandermonde
-   alpha(:,k) = alpha(:,k) ./ (V*a(:,k)); % correction pour tenir compte du filtre de blanchiment
-   k = k+1; % itération suivante
-   t1 = t1 + N8; % recouvrement de 7/8 entre deux fenêtres consécutives
-   t2 = t2 + N/8;
+
+% ESTIMATION DES AMPLITUDES COMPLEXES
+alpha(:,k) = pinv(V)*x; % moindres carrés
+V = exp(log(1./z(:,k))*(0:p-1)); % matrice de Vandermonde
+alpha(:,k) = alpha(:,k) ./ (V*a(:,k)); % correction pour tenir compte du filtre de blanchiment
+k = k+1; % itération suivante
+t1 = t1 + N8; % recouvrement de 7/8 entre deux fenêtres consécutives
+t2 = t2 + N/8;
+
 end;
