@@ -21,7 +21,7 @@ function [The_z,The_alpha,x] = analyse(s,Fs)
 % along with this program.  If not, see <http://www.gnu.org/licenses/>. 
 
 % DEFINITION DU BANC DE FILTRES D'ANALYSE
-D = 8; % facteur de d?cimation dans chaque sous-bande = nombre de sous-bandes de fr?quences positives
+D = 3; % facteur de d?cimation dans chaque sous-bande = nombre de sous-bandes de fr?quences positives
 M = 2*D; % nombre total de sous-bandes (D sous-bandes de fr?quences positives + D sous-bandes de fr?quences n?gatives)
 L = 128; % longueur des filtres d'analyse
 h = filterbank(L,D); % calcul des filtres d'analyse
@@ -72,8 +72,8 @@ end;
 x = 2*real(synthese(The_z,The_alpha,D,n,l,1));
 
 % % AFFICHAGE DU HR-OGRAMME
-% The_Pow = abs(The_alpha).^2/n; % calcul des puissances estim?es
 load colors; % chargement des couleurs pour le HR-ogramme
+% The_Pow = abs(The_alpha).^2/n; % calcul des puissances estim?es
 % seuil = 150; % seuil en dB pour r?gler le contraste du HR-ogramme
 % HRogram(N*D/8,Fs,The_Freq,10*log10(The_Pow),1,seuil,colors); % affichage
 

@@ -1,44 +1,49 @@
-% TP: méthode HR
-% Victor Wetzel
-% ATIAM 2017
+% This program is free software: you can redistribute it and/or modify
+% it under the terms of the GNU General Public License as published by
+% the Free Software Foundation, either version 3 of the License, or
+% (at your option) any later version.
+%
+% This program is distributed in the hope that it will be useful,
+% but WITHOUT ANY WARRANTY; without even the implied warranty of
+% MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+% GNU General Public License for more details.
+%
+% You should have received a copy of the GNU General Public License
+% along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-clear all; close all;
 
-%% INIT
-% [sig, Fs] = audioread('clocheA.wav');
+[Micro, Fs] = audioread('data/Mesures_18_12_2017_matin/01-171218_plectredown_P1.wav');
+[Acc, Fs] = audioread('data/Mesures_18_12_2017_matin/02-171218_plectredown_P1.wav');
 
-%% Exponentielles synthétiques
-f0 = 1/4;     % Freq fondamentale f0
-N = 63;
-f1 = f0 + 1/N;
+deb = 1.351e5;
+int = Fs/2;
+s = Micro(deb:deb+int);
 
-a0 = 1; a1 = 10;
-a = [a0; a1];
-d0 = 0; d1 = -0.05;
-d = [d0; d1];
-phi0 = rand(1,1)*2*pi; phi1 = rand(1,1)*2*pi;
-phi = [phi0; phi1];
 
-% Vecteur fréquence
-f = [-1/2:1/N:1/2 - 1/N];
+[z, a, x] =   analyse(s, Fs);
 
-x = Synthesis(N, [d0 d1],[f0 f1],[a0 a1], [phi0 phi1]);
+if length(x) < length(s)
+    r=x-s(1:length(x));
+else
+    r=s-x(1:length(s));
+end
 
-%% Méthode ESPRIT
-n = 32; K = 2;
-ESPRIT(x, n, K);
+audiowrite('output/sin_plectreP1.wav',x, Fs);
+audiowrite('output/noise_plectreP1.wav',r, Fs);
 
-[a_est, phi_est] = LeastSquares(x,[d0;d1],[f0;f1]);
+%% 
+N_FFT = 2^16;
+N = length(r);
+win = hann(N);
+dF = Fs/N_FFT;
+fmax = Fs/2;
+f_vec = [-fmax+dF : dF:fmax];
 
-%% Méthode MUSIC
-K = 20;
-n = 32;
-MUSIC(x,n,K);
+fft_r = fft(r.*win,N_FFT);
 
-%%
-[x, Fe] = audioread('ClocheA.WAV');
-
-[dk, fk] = ESPRIT(x,512,54);
-[ak, phik] = LeastSquares(x, dk, fk);
-y = Synthesis(100000,dk,fk,ak,phik);
+figure
+plot(f_vec, db(fftshift(abs(fft_r)))')
+xlim([0,2000])
+ylabel('Amp (dB)')
+xlabel('Freq (Hz)')
 
