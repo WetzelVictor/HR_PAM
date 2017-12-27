@@ -1,4 +1,14 @@
 function [truncated_sig] = extract_attack(sig, Fs)
+% extract the transient from a clean signal (e.g. where the attack emerges from
+% the rest of the sound scene. The method is a simple search-for-the-maximum
+% type
+%
+% Arguments:
+%   - signal: the vector you want to extract the attack from
+%   - Fs: frequency samplerate
+%
+% Returns:
+%   - truncated_sig : truncated signal
 
 % Retrieving maximum and its index
 [threshold, index] = max(abs(sig));
