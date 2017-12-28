@@ -21,9 +21,9 @@ function [The_z,The_alpha,x] = analyse(s,Fs)
 % along with this program.  If not, see <http://www.gnu.org/licenses/>. 
 
 % DEFINITION DU BANC DE FILTRES D'ANALYSE
-D = 35; % facteur de d?cimation dans chaque sous-bande = nombre de sous-bandes de fr?quences positives
+D = 20; % facteur de d?cimation dans chaque sous-bande = nombre de sous-bandes de fr?quences positives
 M = 2*D; % nombre total de sous-bandes (D sous-bandes de fr?quences positives + D sous-bandes de fr?quences n?gatives)
-L = 128; % longueur des filtres d'analyse
+L = 256; % longueur des filtres d'analyse
 h = filterbank(L,D); % calcul des filtres d'analyse
 
 
@@ -35,7 +35,7 @@ N = n+l-1; % longueur totale de l'horizon d'observation
 The_Freq = []; % Matrice contenant les fr?quences estim?es ? chaque instant d'analyse
 The_z = []; % Matrice contenant les p?les complexes estim?s ? chaque instant d'analyse
 The_alpha = []; % Matrice contenant les amplitudes complexes estim?es ? chaque instant d'analyse
-rang = [20, 20, 20, 20, 20,20,20]; % nombre de fr?quences recherch?es dans les sous-bandes ; d?tection automatique si 0
+rang = [20, 20, 20, 20, 20, 20, 20]*2; % nombre de fr?quences recherch?es dans les sous-bandes ; d?tection automatique si 0
 
 
 % ANALYSE DU SIGNAL
