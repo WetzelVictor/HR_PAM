@@ -10,26 +10,23 @@
 %
 % You should have received a copy of the GNU General Public License
 % along with this program.  If not, see <http://www.gnu.org/licenses/>.
+startup
+    
+file = '../data/Mesures_22_12_2017/SOL/fil/micro/90deg_P2.wav'
+[sig, Fs] = audioread(file);
+sig = sig/max(1.1*abs(sig));
+sig = extract_attack(sig, Fs);
 
+[z, a, x] =   analyse(sig, Fs);
 
-[Micro, Fs] = audioread('data/Mesures_18_12_2017_matin/01-171218_plectredown_P1.wav');
-[Acc, Fs] = audioread('data/Mesures_18_12_2017_matin/02-171218_plectredown_P1.wav');
-
-deb = 1.351e5;
-int = Fs/2;
-s = Micro(deb:deb+int);
-
-
-[z, a, x] =   analyse(s, Fs);
-
-if length(x) < length(s)
-    r=x-s(1:length(x));
+if length(x) < length(sig)
+    r=x-sig(1:length(x));
 else
-    r=s-x(1:length(s));
+    r=s-x(1:length(sig));
 end
 
-audiowrite('output/sin_plectreP1.wav',x, Fs);
-audiowrite('output/noise_plectreP1.wav',r, Fs);
+audiowrite('output/acier_sin_plectreP1.wav',x, Fs);
+audiowrite('output/acier_noise_plectreP1.wav',r, Fs);
 
 %% 
 N_FFT = 2^16;
