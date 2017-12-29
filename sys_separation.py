@@ -1,13 +1,20 @@
+#-*-encoding:UTF-8-*-
+
+# IMPORT STATEMENTS
 import os
 import matlab.engine
 
+# Booting matlab's engine
 eng = matlab.engine.start_matlab()
 
+# current working directory
 cwd = os.getcwd() + '/'
+
+# You can specify your own path here
 inputpath = cwd + 'data/'
 outputpath = cwd + 'output/extracted/'
 
-# This piece of code lists the filepath of .wav files in an architechture
+#%% Goes through the whole database
 for dirpath, dirnames, filenames in os.walk(inputpath):
     for filename in filenames:
         if filename.endswith('.wav'):
