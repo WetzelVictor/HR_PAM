@@ -78,7 +78,7 @@ load colors; % chargement des couleurs pour le HR-ogramme
 % HRogram(N*D/8,Fs,The_Freq,10*log10(The_Pow),1,seuil,colors); % affichage
 
 % AFFICHAGE DU SPECTROGRAMME
-figure; specgram(s,1024,Fs);
-colormap(colors);
-xlabel('Temps (secondes)');
-ylabel('Fr?quence (Hz)');
+% figure; specgram(s,1024,Fs);
+% colormap(colors);
+% xlabel('Temps (secondes)');
+% ylabel('Fr?quence (Hz)');

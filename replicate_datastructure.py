@@ -1,6 +1,6 @@
 import os
 
-inputpath = '../data/'
+inputpath = 'data/'
 outputpath = 'output/extracted/'
 
 for dirpath, dirnames, filenames in os.walk(inputpath):
