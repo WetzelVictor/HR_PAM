@@ -35,7 +35,7 @@ N = n+l-1; % longueur totale de l'horizon d'observation
 The_Freq = []; % Matrice contenant les fr?quences estim?es ? chaque instant d'analyse
 The_z = []; % Matrice contenant les p?les complexes estim?s ? chaque instant d'analyse
 The_alpha = []; % Matrice contenant les amplitudes complexes estim?es ? chaque instant d'analyse
-rang = [20, 20, 20, 20, 20, 20, 20]*2; % nombre de fr?quences recherch?es dans les sous-bandes ; d?tection automatique si 0
+rang = ones(D,1)*20; % nombre de fr?quences recherch?es dans les sous-bandes ; d?tection automatique si 0
 
 
 % ANALYSE DU SIGNAL
