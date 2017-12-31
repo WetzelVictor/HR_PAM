@@ -1,6 +1,6 @@
-function [] = space_separation(input_filepath, out_dir, out_file)
+function [] = space_separation(input_filepath, out_dir, out_file, fig_name)
 % Perform subspace separation method on the file located at 'input_filepath',
-% and writes the audio file at 'output_filepath'
+% and writes the audio file at 'output_filepath'.
 %
 % Arguments:
 %     - input_filepath: file to perform separation on
@@ -29,13 +29,33 @@ end
 
 % Output filename
 output_sig = strcat(out_dir,'sinus_',out_file);
-output_noi = strcat(out_dir,'noise_',out_file);
+output_noise = strcat(out_dir,'noise_',out_file);
 
 % Data write
 x = x/max(1.1*abs(x));
 r = r/max(1.1*abs(r));
 
 audiowrite(output_sig, x, Fs);
-audiowrite(output_noi, r, Fs);
+audiowrite(output_noise, r, Fs);
+
+%% Spectrogram
+load colors;
+
+% Analysis parameters
+N_fft = 2^15;
+N_win = 512;
+win = hann(N_win, 'periodic');
+N_over = floor(N_win/8);
+
+
+% AFFICHAGE DU SPECTROGRAMME
+handles = figure;
+spectrogram(r,win, N_over, N_fft,Fs,'yaxis')
+colormap(colors)
+xlabel('Temps (secondes)')
+ylabel('Fréquence (Hz)')
+title(strcat('Résiduel ',out_file))
+savefig(fig_name)
+close all
 
 end
