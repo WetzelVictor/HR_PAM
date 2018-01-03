@@ -7,4 +7,4 @@
 %
 
 addpath DESAM/
-
+addpath src/
