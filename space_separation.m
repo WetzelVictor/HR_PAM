@@ -50,7 +50,7 @@ N_over = floor(N_win/8);
 
 % AFFICHAGE DU SPECTROGRAMME
 handles = figure;
-spectrogram(r,win, N_over, N_fft,Fs,'yaxis')
+spectrogram(r,win, N_over, N_fft,Fs,'yaxis','MinThreshold',-115)
 colormap(colors)
 xlabel('Temps (secondes)')
 ylabel('Fréquence (Hz)')
