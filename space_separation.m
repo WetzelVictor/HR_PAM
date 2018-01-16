@@ -18,7 +18,22 @@ sig = sig/max(1.1*abs(sig));
 sig = extract_attack(sig, Fs);
 
 % Subspace tracking method
-[z, a, x] = analyse(sig, Fs);
+[z, alpha, x] = analyse(sig, Fs);
+delta = log(abs(z));
+f = 1/(2*pi)*angle(z);
+a = abs(alpha);
+phi = angle(alpha);
+savedfile = replace(fig_name, '.fig', '.mat');
+save(savedfile, 'delta', 'f', 'a', 'phi')
+fmax = 15;
+fen = 15;
+fk = f(1:fmax, fen)*Fs;
+ak = a(1:fmax, fen);
+stem(fk,100+20*log(ak))
+xlabel('Fr√©quence (Hz)')
+ylabel('Amplitude(dB)')
+savedfig = replace(fig_name, '.fig', '_params.fig');
+savefig(savedfig)
 
 % Separation
 if length(x) < length(sig)
@@ -53,8 +68,8 @@ handles = figure;
 spectrogram(r,win, N_over, N_fft,Fs,'yaxis','MinThreshold',-115)
 colormap(colors)
 xlabel('Temps (secondes)')
-ylabel('FrÈquence (Hz)')
-title(strcat('RÈsiduel ',out_file))
+ylabel('FrÔøΩquence (Hz)')
+title(strcat('RÔøΩsiduel ',out_file))
 savefig(fig_name)
 close all
 
