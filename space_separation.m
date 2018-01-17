@@ -25,11 +25,11 @@ a = abs(alpha);
 phi = angle(alpha);
 savedfile = replace(fig_name, '.fig', '.mat');
 save(savedfile, 'delta', 'f', 'a', 'phi')
-fmax = 15;
+fmax = 40;
 fen = 15;
 fk = f(1:fmax, fen)*Fs;
-ak = a(1:fmax, fen);
-stem(fk,100+20*log(ak))
+ak = a(1:fmax, fen)*Fs;
+stem(fk, 20*log(ak))
 xlabel('Fréquence (Hz)')
 ylabel('Amplitude(dB)')
 savedfig = replace(fig_name, '.fig', '_params.fig');
