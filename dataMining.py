@@ -11,10 +11,10 @@ dataStruct = audio_engine.compute_features(dataStruct)
 Nx = len(dataStruct["filepath"])
 
 #%% Plots
-Labels = ['fil','plectre']
+Labels = ['P1','P2','P3']
 #Labels = ['nylon','acier']
 plotX = 'SpectralRolloffMean'
-plotY = 'SpectralBandwidthMean'
+plotY = 'SpectralCentroidMean'
 
 # A FAIRE
 classesIncludeOnly = ['noise','fil']
@@ -35,7 +35,7 @@ for tag in Labels:
 for i in xrange(Nx):
     curLabel = dataStruct['assigned_label'][i]
     
-    if not "sinus" in curLabel:
+    if not "noise" in curLabel and not "accel" in curLabel:
         continue
     
     for tag in Labels:
