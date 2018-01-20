@@ -43,6 +43,39 @@ def build_data_structure(database_folder):
         print 'Couldn\'t remove root file name'
         
     class_names.remove('.wav')
+    
+    try:
+        class_names.remove('01')
+    except ValueError:
+        print 'no 01 tag'
+
+    try:
+        class_names.remove('02')
+    except ValueError:
+        print 'no 02 tag'
+
+    try:
+        class_names.remove('03')
+    except ValueError:
+        print 'no 03 tag'
+
+    try:
+        class_names.remove('1')
+    except ValueError:
+        print 'no 1 tag'
+    
+    try:
+        class_names.remove('2')
+    except ValueError:
+        print 'no 2 tag'
+
+    try:
+        class_names.remove('3')
+    except ValueError:
+        print 'no 3 tag'
+
+    
+
     to_remove = []
     Nclass = len(class_names)
 

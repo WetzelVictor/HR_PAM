@@ -19,6 +19,8 @@ sig = extract_attack(sig, Fs);
 
 % Subspace tracking method
 [z, alpha, x] = analyse(sig, Fs);
+
+% Extracting parameters from poles and amplitude
 delta = log(abs(z));
 f = 1/(2*pi)*angle(z);
 a = abs(alpha);
@@ -41,9 +43,9 @@ savefig(savedfig)
 
 % Separation
 if length(x) < length(sig)
-    r=x-sig(1:length(x));
+    r = x - sig(1:length(x));
 else
-    r=s-x(1:length(sig));
+    r = s - x(1:length(sig));
 end
 
 % Output filename
@@ -62,7 +64,7 @@ audiowrite(output_noise, r, Fs);
 load colors;
 
 % Analysis parameters
-N_fft = 2^15;
+N_fft = 2^13;
 N_win = 512;
 win = hann(N_win, 'periodic');
 N_over = floor(N_win/8);
@@ -74,8 +76,9 @@ spectrogram(r,win, N_over, N_fft,Fs,'yaxis','MinThreshold',-115)
 colormap(colors)
 xlabel('Temps (secondes)')
 ylabel('Fréquence (Hz)')
-title(strcat('Résiduel ',out_file))
-savefig(fig_name)
+
+title(strcat('Résiduel ', out_file))
+saveas(gcf, replace(fig_name, '.fig',''), 'epsc')
 close all
 
 end
