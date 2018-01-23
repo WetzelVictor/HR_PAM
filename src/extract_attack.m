@@ -19,7 +19,7 @@ len_sample = len*Fs;
 
 % Retrieving truncated signal
 flagA = index - len_sample;
-flagB = index + 10*len_sample;
+flagB = index + 4*Fs;
 
 truncated_sig = sig(flagA: flagB);
 

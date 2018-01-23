@@ -1,4 +1,4 @@
-function [The_z, The_alpha ,x] = analyse(s,Fs)
+function [The_z, The_alpha,x] = analyse(s,Fs)
 %[z,alpha,x] = analyse(s,Fs) effectue l'analyse du signal x
 %z contient les p?les complexes estim?s
 %alpha contient les amplitudes complexes estim?es
@@ -53,26 +53,26 @@ for k=1:length(rang), % pour toutes les sous-bandes
    alpha2 = zeros(size(alpha)); % ampltiudes complexes en bande pleine
 
    % REMAPPAGE DES FREQUENCES EN BANDE PLEINE
-   for t=1:size(Freq,2), % pour tous les instants d'analyse
-		if mod(k,2) ==1, % cas des sous-bandes impaires
+   for t=1:size(Freq,2) % pour tous les instants d'analyse
+		if mod(k,2) ==1 % cas des sous-bandes impaires
 		   I = Freq(:,t)<.5; % on ne conserve que les fr?quences comprises entre 0 et 0.5 (les autres sont alias?es)
 			Freq2(1:sum(I),t) = ((k-1)+2*Freq(I,t))/M; % remappage
 		else % cas des sous-bandes paires
 		   I = Freq(:,t)>=.5;  % on ne conserve que les fr?quences comprises entre 0.5 et 1 (les autres sont alias?es)
 			Freq2(1:sum(I),t) = ((k-1)+2*(Freq(I,t)-.5))/M; % remappage
-      end;
+        end
       z2(1:sum(I),t) = exp(log(abs(z(I,t)))/D+i*2*pi*Freq2(1:sum(I),t)); % remappage des p?les en bande pleine
 
       % CORRECTION DES AMPLITUDES COMPLEXES
       V = exp(log(1./z2(1:sum(I),t))*(0:size(h,1)-1)); % matrice de Vandermonde construite sur les p?les estim?s
       alpha2(1:sum(I),t) = alpha(I,t) ./ ( (V*h(:,k)) .* (V(:,1:2)*[1;-0.98]) ) ; % compensation du filtre de pr?-accentuation
-   end;
+   end
 
    % JUXTAPOSITION DES PARAMETRES ESTIMES A PARTIR DES SOUS-BANDES  
    The_Freq = [The_Freq;Freq2];
    The_z = [The_z;z2];
    The_alpha = [The_alpha;alpha2];
-end;
+end
 
 % RESYNTHESE DU SIGNAL
 x = 2*real(synthese(The_z,The_alpha,D,n,l,1));
