@@ -11,8 +11,8 @@ eng = matlab.engine.start_matlab()
 cwd = os.getcwd() + '/'
 
 # You can specify your own path here
-inputpath = cwd + 'data/'
-outputpath = cwd + 'output/extracted/'
+inputpath = cwd + 'data/repetabilite/'
+outputpath = cwd + 'output/repetabilite/'
 
 #%% Goes through the whole database
 for dirpath, dirnames, filenames in os.walk(inputpath):

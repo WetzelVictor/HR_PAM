@@ -23,9 +23,11 @@ delta = log(abs(z));
 f = 1/(2*pi)*angle(z);
 a = abs(alpha);
 phi = angle(alpha);
+
+% Saving estimated parameters in a .mat file
 savedfile = replace(fig_name, '.fig', '.mat');
 save(savedfile, 'delta', 'f', 'a', 'phi')
-fmax = 40;
+
 fen = 15;
 fk = f(1:fmax, fen)*Fs;
 ak = a(1:fmax, fen)*Fs;
@@ -49,6 +51,7 @@ output_noise = strcat(out_dir,'noise_',out_file);
 % Data write
 x = x/max(1.1*abs(x));
 r = r/max(1.1*abs(r));
+r = r(1:Fs/2); % The noise recording can be shorter (0.5 second)
 
 audiowrite(output_sig, x, Fs);
 audiowrite(output_noise, r, Fs);
@@ -68,8 +71,8 @@ handles = figure;
 spectrogram(r,win, N_over, N_fft,Fs,'yaxis','MinThreshold',-115)
 colormap(colors)
 xlabel('Temps (secondes)')
-ylabel('Fr�quence (Hz)')
-title(strcat('R�siduel ',out_file))
+ylabel('Fréquence (Hz)')
+title(strcat('Résiduel ',out_file))
 savefig(fig_name)
 close all
 
