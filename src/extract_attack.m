@@ -21,6 +21,10 @@ len_sample = len*Fs;
 flagA = index - len_sample;
 flagB = index + 4*Fs;
 
-truncated_sig = sig(flagA: flagB);
+if flagB < length(sig)
+  truncated_sig = sig(flagA: flagB);
+else
+  truncated_sig = sig(flagA: end);
+end
 
 end

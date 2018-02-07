@@ -4,3 +4,4 @@
 *.un~
 *.fig
 *.tar.gz
+*.pyc

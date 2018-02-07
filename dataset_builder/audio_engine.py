@@ -27,7 +27,8 @@ def compute_features(dataStruct):
     # Listing audio features
     features_yaafe = ['SpectralFlatness',
                       'SpectralRolloff',
-                      'SpectralSlope',
+                      'PerceptualSharpness',
+                      'PerceptualSpread',
                       'SpectralDecrease',
                       'SpectralVariation',
                       'SpectralFlux']
